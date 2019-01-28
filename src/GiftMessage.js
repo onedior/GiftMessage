@@ -119,6 +119,12 @@ class GiftMessage {
                 }
                 break;
             }
+            case KEYCODES.RIGHT:
+                if (this.activeIndex <= this.lines-1 && e.target.selectionStart === e.target.value.length) {
+                    e.preventDefault();
+                    this.setCaretPosition(this.activeIndex+1, 0, true);
+                }
+                break;
             case KEYCODES.ENTER:
                 if(this.activeIndex === this.lines-1) {
                     return;
