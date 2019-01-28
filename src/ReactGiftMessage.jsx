@@ -11,6 +11,7 @@ class GiftMessage extends React.Component {
             maxCharacters: props.lines * props.maxLength
         };
 
+        this.onUpdate = this.onUpdate.bind(this);
         this.updateCharactersTyped = this.updateCharactersTyped.bind(this);
         this.wrapperRef = React.createRef();
     }
@@ -23,7 +24,7 @@ class GiftMessage extends React.Component {
     }
 
     componentDidMount() {
-        this.giftMessageInstance = new _GiftMessage(this.wrapperRef.current, this.props.maxLength, this.updateCharactersTyped);
+        this.giftMessageInstance = new _GiftMessage(this.wrapperRef.current, this.props.maxLength, this.onUpdate);
     }
 
     componentWillUnmount() {
@@ -36,7 +37,7 @@ class GiftMessage extends React.Component {
                 { this.renderFields()}
             </div>
             <div className={`${this.props.className}-total`}>
-                {this.state.maxCharacters - this.state.charactersTyped} {this.props.remainingWording}
+                {Math.max(0,this.state.maxCharacters - this.state.charactersTyped)} {this.props.remainingWording}
             </div>
         </div>
     }
@@ -50,6 +51,12 @@ class GiftMessage extends React.Component {
         }
         return fields;
     }
+
+    onUpdate(values) {
+        this.updateCharactersTyped(values);
+        if (typeof this.props.onUpdate === 'function')
+            this.props.onUpdate(values);
+    }
 }
 
 GiftMessage.propTypes = {
@@ -57,7 +64,8 @@ GiftMessage.propTypes = {
     lines: PropTypes.number.isRequired,
     className: PropTypes.string.isRequired,
     id: PropTypes.string,
-    remainingWording: PropTypes.string
+    remainingWording: PropTypes.string,
+    onUpdate: PropTypes.func
 };
 
 export default GiftMessage;

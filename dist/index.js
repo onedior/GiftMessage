@@ -253,6 +253,7 @@
         charactersTyped: 0,
         maxCharacters: props.lines * props.maxLength
       };
+      _this.onUpdate = _this.onUpdate.bind(_assertThisInitialized(_assertThisInitialized(_this)));
       _this.updateCharactersTyped = _this.updateCharactersTyped.bind(_assertThisInitialized(_assertThisInitialized(_this)));
       _this.wrapperRef = React.createRef();
       return _this;
@@ -270,7 +271,7 @@
     }, {
       key: "componentDidMount",
       value: function componentDidMount() {
-        this.giftMessageInstance = new GiftMessage(this.wrapperRef.current, this.props.maxLength, this.updateCharactersTyped);
+        this.giftMessageInstance = new GiftMessage(this.wrapperRef.current, this.props.maxLength, this.onUpdate);
       }
     }, {
       key: "componentWillUnmount",
@@ -288,7 +289,7 @@
           className: "".concat(this.props.className, "-lines")
         }, this.renderFields()), React.createElement("div", {
           className: "".concat(this.props.className, "-total")
-        }, this.state.maxCharacters - this.state.charactersTyped, " ", this.props.remainingWording));
+        }, Math.max(0, this.state.maxCharacters - this.state.charactersTyped), " ", this.props.remainingWording));
       }
     }, {
       key: "renderFields",
@@ -303,6 +304,12 @@
 
         return fields;
       }
+    }, {
+      key: "onUpdate",
+      value: function onUpdate(values) {
+        this.updateCharactersTyped(values);
+        if (typeof this.props.onUpdate === 'function') this.props.onUpdate(values);
+      }
     }]);
 
     return GiftMessage$$1;
@@ -313,7 +320,8 @@
     lines: PropTypes.number.isRequired,
     className: PropTypes.string.isRequired,
     id: PropTypes.string,
-    remainingWording: PropTypes.string
+    remainingWording: PropTypes.string,
+    onUpdate: PropTypes.func
   };
 
   exports.ReactGiftMessage = GiftMessage$1;
