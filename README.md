@@ -1,5 +1,12 @@
 # GiftMessage
 
+## Installation
+
+```
+$ yarn add giftmessage
+```
+
+## Example
 ```jsx
 
 import { ReactGiftMessage } from 'giftmessage';
@@ -8,6 +15,6 @@ import { ReactGiftMessage } from 'giftmessage';
   lines={4]
   maxLength={34}
   className="gift-message"}
-   remainingWording="characters remaining" />
+  remainingWording="characters remaining" />
    
 ```
