@@ -46,7 +46,12 @@ class GiftMessage extends React.Component {
         const fields = [];
         for (let i = 0; i<this.props.lines; i ++) {
             fields.push(
-                <input key={i} />
+                <input
+                  key={i}
+                  defaultValue={
+                    this.props.defaultValues
+                    ? this.props.defaultValues[i]
+                    : '' } />
             );
         }
         return fields;
@@ -65,7 +70,8 @@ GiftMessage.propTypes = {
     className: PropTypes.string.isRequired,
     id: PropTypes.string,
     remainingWording: PropTypes.string,
-    onUpdate: PropTypes.func
+    onUpdate: PropTypes.func,
+    defaultValues: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default GiftMessage;

@@ -298,7 +298,8 @@
 
         for (var i = 0; i < this.props.lines; i++) {
           fields.push(React.createElement("input", {
-            key: i
+            key: i,
+            defaultValue: this.props.defaultValues ? this.props.defaultValues[i] : ''
           }));
         }
 
@@ -321,7 +322,8 @@
     className: PropTypes.string.isRequired,
     id: PropTypes.string,
     remainingWording: PropTypes.string,
-    onUpdate: PropTypes.func
+    onUpdate: PropTypes.func,
+    defaultValues: PropTypes.arrayOf(PropTypes.string)
   };
 
   exports.ReactGiftMessage = GiftMessage$1;
