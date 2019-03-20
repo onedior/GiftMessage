@@ -295,11 +295,16 @@
       key: "renderFields",
       value: function renderFields() {
         var fields = [];
+        var _this$props = this.props,
+            defaultValues = _this$props.defaultValues,
+            lines = _this$props.lines,
+            ariaLineLabel = _this$props.ariaLineLabel;
 
-        for (var i = 0; i < this.props.lines; i++) {
+        for (var i = 0; i < lines; i++) {
           fields.push(React.createElement("input", {
             key: i,
-            defaultValue: this.props.defaultValues ? this.props.defaultValues[i] : ''
+            "aria-label": ariaLineLabel ? "".concat(ariaLineLabel, " ").concat(i + 1) : '',
+            defaultValue: defaultValues ? defaultValues[i] : ''
           }));
         }
 
@@ -318,6 +323,7 @@
 
   GiftMessage$1.propTypes = {
     maxLength: PropTypes.number.isRequired,
+    ariaLineLabel: PropTypes.string,
     lines: PropTypes.number.isRequired,
     className: PropTypes.string.isRequired,
     id: PropTypes.string,

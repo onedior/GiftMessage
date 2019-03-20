@@ -44,13 +44,19 @@ class GiftMessage extends React.Component {
 
     renderFields() {
         const fields = [];
-        for (let i = 0; i<this.props.lines; i ++) {
+        const { defaultValues, lines, ariaLineLabel } = this.props;
+        for (let i = 0; i<lines; i ++) {
             fields.push(
                 <input
                   key={i}
+                  aria-label={
+                    ariaLineLabel
+                    ? `${ariaLineLabel} ${i+1}`
+                    : ''
+                  }
                   defaultValue={
-                    this.props.defaultValues
-                    ? this.props.defaultValues[i]
+                    defaultValues
+                    ? defaultValues[i]
                     : '' } />
             );
         }
@@ -66,6 +72,7 @@ class GiftMessage extends React.Component {
 
 GiftMessage.propTypes = {
     maxLength: PropTypes.number.isRequired,
+    ariaLineLabel: PropTypes.string,
     lines: PropTypes.number.isRequired,
     className: PropTypes.string.isRequired,
     id: PropTypes.string,
