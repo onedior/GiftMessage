@@ -44,7 +44,7 @@ class GiftMessage extends React.Component {
 
     renderFields() {
         const fields = [];
-        const { defaultValues, lines, ariaLineLabel } = this.props;
+        const { defaultValues, lines, ariaLineLabel, placeholders } = this.props;
         for (let i = 0; i<lines; i ++) {
             fields.push(
                 <input
@@ -52,6 +52,11 @@ class GiftMessage extends React.Component {
                   aria-label={
                     ariaLineLabel
                     ? `${ariaLineLabel} ${i+1}`
+                    : ''
+                  }
+                  placeholder={
+                    placeholders
+                    ? placeholders[i]
                     : ''
                   }
                   defaultValue={
@@ -79,6 +84,7 @@ GiftMessage.propTypes = {
     remainingWording: PropTypes.string,
     onUpdate: PropTypes.func,
     defaultValues: PropTypes.arrayOf(PropTypes.string),
+    placeholders: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default GiftMessage;

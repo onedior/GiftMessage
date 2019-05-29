@@ -298,12 +298,14 @@
         var _this$props = this.props,
             defaultValues = _this$props.defaultValues,
             lines = _this$props.lines,
-            ariaLineLabel = _this$props.ariaLineLabel;
+            ariaLineLabel = _this$props.ariaLineLabel,
+            placeholders = _this$props.placeholders;
 
         for (var i = 0; i < lines; i++) {
           fields.push(React.createElement("input", {
             key: i,
             "aria-label": ariaLineLabel ? "".concat(ariaLineLabel, " ").concat(i + 1) : '',
+            placeholder: placeholders ? placeholders[i] : '',
             defaultValue: defaultValues ? defaultValues[i] : ''
           }));
         }
@@ -329,7 +331,8 @@
     id: PropTypes.string,
     remainingWording: PropTypes.string,
     onUpdate: PropTypes.func,
-    defaultValues: PropTypes.arrayOf(PropTypes.string)
+    defaultValues: PropTypes.arrayOf(PropTypes.string),
+    placeholders: PropTypes.arrayOf(PropTypes.string)
   };
 
   exports.ReactGiftMessage = GiftMessage$1;
