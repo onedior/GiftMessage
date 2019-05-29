@@ -16,6 +16,7 @@ import { ReactGiftMessage } from 'giftmessage';
   maxLength={34}
   className="gift-message"
   remainingWording="characters remaining"
+  placeholders={['Enter a giftmessage']}
 />
 
 ```
