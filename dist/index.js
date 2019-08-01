@@ -241,25 +241,27 @@
   var GiftMessage$1 =
   /*#__PURE__*/
   function (_React$Component) {
-    _inherits(GiftMessage$$1, _React$Component);
+    _inherits(GiftMessage$1, _React$Component);
 
-    function GiftMessage$$1(props) {
+    function GiftMessage$1(props) {
       var _this;
 
-      _classCallCheck(this, GiftMessage$$1);
+      _classCallCheck(this, GiftMessage$1);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(GiftMessage$$1).call(this, props));
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(GiftMessage$1).call(this, props));
       _this.state = {
-        charactersTyped: 0,
+        charactersTyped: Array.isArray(props.defaultValues) ? props.defaultValues.reduce(function (acc, curr) {
+          return acc + curr.length;
+        }, 0) : 0,
         maxCharacters: props.lines * props.maxLength
       };
-      _this.onUpdate = _this.onUpdate.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      _this.updateCharactersTyped = _this.updateCharactersTyped.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      _this.onUpdate = _this.onUpdate.bind(_assertThisInitialized(_this));
+      _this.updateCharactersTyped = _this.updateCharactersTyped.bind(_assertThisInitialized(_this));
       _this.wrapperRef = React.createRef();
       return _this;
     }
 
-    _createClass(GiftMessage$$1, [{
+    _createClass(GiftMessage$1, [{
       key: "updateCharactersTyped",
       value: function updateCharactersTyped(values) {
         this.setState({
@@ -320,7 +322,7 @@
       }
     }]);
 
-    return GiftMessage$$1;
+    return GiftMessage$1;
   }(React.Component);
 
   GiftMessage$1.propTypes = {
