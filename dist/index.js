@@ -251,7 +251,7 @@
       _this = _possibleConstructorReturn(this, _getPrototypeOf(GiftMessage$1).call(this, props));
       _this.state = {
         charactersTyped: Array.isArray(props.defaultValues) ? props.defaultValues.reduce(function (acc, curr) {
-          return acc + curr.length;
+          return curr ? acc + curr.length : acc;
         }, 0) : 0,
         maxCharacters: props.lines * props.maxLength
       };

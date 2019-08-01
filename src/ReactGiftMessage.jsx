@@ -8,7 +8,10 @@ class GiftMessage extends React.Component {
         super(props);
         this.state = {
             charactersTyped: Array.isArray(props.defaultValues)
-                ? props.defaultValues.reduce((acc, curr) => acc + curr.length,0)
+                ? props.defaultValues.reduce((acc, curr) =>
+                    curr ? acc + curr.length : acc,
+                    0
+                )
                 : 0,
             maxCharacters: props.lines * props.maxLength
         };
