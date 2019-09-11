@@ -29,7 +29,7 @@ class GiftMessage extends React.Component {
     }
 
     componentDidMount() {
-        this.giftMessageInstance = new _GiftMessage(this.wrapperRef.current, this.props.maxLength, this.onUpdate);
+        this.giftMessageInstance = new _GiftMessage(this.wrapperRef.current, this.props.maxLength, this.onUpdate, { noEmojis: this.props.noEmojis });
     }
 
     componentWillUnmount() {
@@ -90,6 +90,7 @@ GiftMessage.propTypes = {
     onUpdate: PropTypes.func,
     defaultValues: PropTypes.arrayOf(PropTypes.string),
     placeholders: PropTypes.arrayOf(PropTypes.string),
+    noEmojis: PropTypes.bool
 };
 
 export default GiftMessage;

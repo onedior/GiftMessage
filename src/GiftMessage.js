@@ -7,15 +7,18 @@ const KEYCODES = {
     ENTER: 13
 };
 
+const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g;
+
 
 class GiftMessage {
 
-    constructor(parent, maxLength, onUpdate) {
+    constructor(parent, maxLength, onUpdate, options = {}) {
 
         this.elements = parent.getElementsByTagName('input');
         this.lines = this.elements.length;
         this.maxLength = maxLength;
         this.regex = new RegExp(`(.{0,${this.maxLength}})(?:\\s|$)`, 'g');
+        this.options = options;
 
         this.onFocus = this.onFocus.bind(this);
         this.onInput = this.onInput.bind(this);
@@ -80,7 +83,8 @@ class GiftMessage {
     }
 
     onInput(e) {
-        const caretPosition = this.elements[this.activeIndex].selectionStart;
+        let caretPosition = this.elements[this.activeIndex].selectionStart;
+        if (this.options.noEmojis) caretPosition = GiftMessage.removeEmojis(e, caretPosition);
         if (this.activeIndex < this.lines-1) {
             const values = this.getLineValues();
             const adjusted = this.adjustLines(values);
@@ -135,6 +139,12 @@ class GiftMessage {
                 break;
             }
         }
+    }
+
+    static removeEmojis(e, caretPosition) {
+        const previousLength = e.target.value.length;
+        e.target.value = e.target.value.replace(emojiRegex, '');
+        return caretPosition + e.target.value.length- previousLength;
     }
 
     destroy() {
