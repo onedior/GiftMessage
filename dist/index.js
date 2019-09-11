@@ -84,6 +84,7 @@
     BACKSPACE: 8,
     ENTER: 13
   };
+  var emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g;
 
   var GiftMessage =
   /*#__PURE__*/
@@ -91,12 +92,15 @@
     function GiftMessage(parent, maxLength, onUpdate) {
       var _this = this;
 
+      var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
       _classCallCheck(this, GiftMessage);
 
       this.elements = parent.getElementsByTagName('input');
       this.lines = this.elements.length;
       this.maxLength = maxLength;
       this.regex = new RegExp("(.{0,".concat(this.maxLength, "})(?:\\s|$)"), 'g');
+      this.options = options;
       this.onFocus = this.onFocus.bind(this);
       this.onInput = this.onInput.bind(this);
       this.onKeyDown = this.onKeyDown.bind(this);
@@ -163,6 +167,7 @@
       key: "onInput",
       value: function onInput(e) {
         var caretPosition = this.elements[this.activeIndex].selectionStart;
+        if (this.options.noEmojis) caretPosition = GiftMessage.removeEmojis(e, caretPosition);
 
         if (this.activeIndex < this.lines - 1) {
           var values = this.getLineValues();
@@ -233,6 +238,13 @@
           el.removeEventListener('keydown', _this3.onKeyDown);
         });
       }
+    }], [{
+      key: "removeEmojis",
+      value: function removeEmojis(e, caretPosition) {
+        var previousLength = e.target.value.length;
+        e.target.value = e.target.value.replace(emojiRegex, '');
+        return caretPosition + e.target.value.length - previousLength;
+      }
     }]);
 
     return GiftMessage;
@@ -273,7 +285,9 @@
     }, {
       key: "componentDidMount",
       value: function componentDidMount() {
-        this.giftMessageInstance = new GiftMessage(this.wrapperRef.current, this.props.maxLength, this.onUpdate);
+        this.giftMessageInstance = new GiftMessage(this.wrapperRef.current, this.props.maxLength, this.onUpdate, {
+          noEmojis: this.props.noEmojis
+        });
       }
     }, {
       key: "componentWillUnmount",
@@ -334,7 +348,8 @@
     remainingWording: PropTypes.string,
     onUpdate: PropTypes.func,
     defaultValues: PropTypes.arrayOf(PropTypes.string),
-    placeholders: PropTypes.arrayOf(PropTypes.string)
+    placeholders: PropTypes.arrayOf(PropTypes.string),
+    noEmojis: PropTypes.bool
   };
 
   exports.ReactGiftMessage = GiftMessage$1;

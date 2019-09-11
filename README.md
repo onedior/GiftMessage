@@ -17,6 +17,7 @@ import { ReactGiftMessage } from 'giftmessage';
   className="gift-message"
   remainingWording="characters remaining"
   placeholders={['Enter a giftmessage']}
+  noEmojis={true}
 />
 
 ```
