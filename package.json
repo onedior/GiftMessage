@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "example": "rollup -c rollup.example.js -w"
   },
   "author": "Jérémie Dubuis",
   "license": "MIT",
@@ -22,5 +23,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Happyend/GiftMessage.git"
-  }
+  },
+  "dependencies": {}
 }
